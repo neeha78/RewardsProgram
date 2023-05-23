@@ -1,4 +1,4 @@
-Technologies - Spring Boot, Maven, H2, Postman
+Technologies - Junit, Spring Boot, Maven, H2, Postman
 --------------------------------------------
 Project Setup
 ---------------------
@@ -13,52 +13,51 @@ Open RewardPointsApplication.java file and then right click run as Java applicat
 
 Below steps for different data inputs
 ---------------------------------------
-1) Below endpoint will create sample data in H2.
+1) Below endpoint will create Transaction data in H2.
 
-http://localhost:8080/mockupData
+http://localhost:8080/transactions
 
-![alt text](https://github.com/Raghuj95/CustomerRewardPoints/blob/main/Showcase/mockupdata.png)
+![alt text](https://github.com/neeha78/RewardsProgram/blob/main/Showcase/createTrasactions.png)
 
 | Method  | API                               | Request  | Response                    |
 | ------- | --------------------------------- | -------- | --------------------------- |
-| POST    |  http://localhost:8080/mockupData |   [{"customerName":"customer1","purchaseAmount":"100","createdDate":"13/03/2023"},{"customerName":"customer1","purchaseAmount":"40","createdDate":"01/04/2023"},{"customerName":"customer1","purchaseAmount":"140","createdDate":"02/04/2023"}]       |  Mockup Data is created     |
+| POST    |  http://localhost:8080/trasactions |    |  Mockup Data is created     |
 
-2) Get the customer total earning points and monthly wise total earning points
+2)Get the Transaction details
 
-http://localhost:8080/getRewardPoints?customerName=customer1
+http://localhost:8080/transactions
 
-![alt text](https://github.com/Raghuj95/CustomerRewardPoints/blob/main/Showcase/customer1.png)
+![alt text](https://github.com/neeha78/RewardsProgram/blob/main/Showcase/GetTransactions.png)
 
-| Method  | API                                                          | Request  | Response                    |
-| ------- | ------------------------------------------------------------ | -------- | --------------------------- |
-| GET     | http://localhost:8080/getRewardPoints?customerName=customer1 |          |  {"totalPoints":180,"rewards":[{"month":3,"monthPoints":50},{"month":4,"monthPoints":130}]}     |
+| Method  | API                               | Request  | Response                    |
+| ------- | --------------------------------- | -------- | --------------------------- |
+| GET    |  http://localhost:8080/trasactions |    | [     {         "id": 1,         "customerName": "customer1",         "customerId": "ABC",         "purchaseAmount": 100,         "points": 50,         "createdDate": "2023-03-12T18:30:00.000+0000"     },     {         "id": 2,         "customerName": "customer1",         "customerId": "ABC",         "purchaseAmount": 40,         "points": 0,         "createdDate": "2023-03-31T18:30:00.000+0000"     },     {         "id": 3,         "customerName": "customer1",         "customerId": "ABC",         "purchaseAmount": 140,         "points": 130,         "createdDate": "2023-04-01T18:30:00.000+0000"     },     {         "id": 4,h         "customerName": "customer2",         "customerId": "XYZ",         "purchaseAmount": 120,         "points": 90,         "createdDate": "2023-03-10T18:30:00.000+0000"     },     {         "id": 5,         "customerName": "customer2",         "customerId": "XYZ",         "purchaseAmount": 130,         "points": 110,         "createdDate": "2023-03-31T18:30:00.000+0000"     } ]     |
 
-3)Get the customer total earning points and monthly wise total earning points
 
-http://localhost:8080/getRewardPoints?customerName=customer2
+3) Get the customer total earning points and monthly wise total earning points
 
-![alt text](https://github.com/Raghuj95/CustomerRewardPoints/blob/main/Showcase/customer2.png)
+http://localhost:8080/getRewards?customerId=ABC
 
-| Method  | API                                                          | Request  | Response                    |
-| ------- | ------------------------------------------------------------ | -------- | --------------------------- |
-| GET     | http://localhost:8080/getRewardPoints?customerName=customer2 |          |  {"totalPoints":200,"rewards":[{"month":3,"monthPoints":90},{"month":4,"monthPoints":110}]}    |
-
-4)Incase of user is not found
-
-http://localhost:8080/getRewardPoints?customerName=customer10
-
-![alt text](https://github.com/Raghuj95/CustomerRewardPoints/blob/main/Showcase/nocustomer.png)
+![alt text](https://github.com/neeha78/RewardsProgram/blob/main/Showcase/GetCustomerID.png)
 
 | Method  | API                                                          | Request  | Response                    |
 | ------- | ------------------------------------------------------------ | -------- | --------------------------- |
-| GET     | http://localhost:8080/getRewardPoints?customerName=customer10 |          |  {"totalPoints":0,"rewards":[]}    |
+| GET     | http://localhost:8080/getRewards?customerId=ABC |          |  {     "customerId": "ABC",     "totalPoints": 180,     "rewards": [         {             "month": 3,             "monthPoints": 50         },         {             "month": 4,             "monthPoints": 130         }     ] }    |
+
+4)Get all rewards
+
+http://localhost:8080/getRewards
+
+![alt text](https://github.com/neeha78/RewardsProgram/blob/main/Showcase/GetRewards.png)
+
+| Method  | API                                                          | Request  | Response                    |
+| ------- | ------------------------------------------------------------ | -------- | --------------------------- |
+| GET     | http://localhost:8080/getRewards |          |  [     {         "customerId": "XYZ",         "totalPoints": 200,         "rewards": [             {                 "month": 3,                 "monthPoints": 90             },             {                 "month": 4,                 "monthPoints": 110             }         ]     },     {         "customerId": "ABC",         "totalPoints": 180,         "rewards": [             {                 "month": 3,                 "monthPoints": 50             },             {                 "month": 4,                 "monthPoints": 130             }         ]     } ]    |
+
 
 To Run Junits 
 -----------
 Unit Testing  Junit (run com.points.PointsServiceTest.java class)
 
-![alt text](https://github.com/Raghuj95/CustomerRewardPoints/blob/main/Showcase/Junits.png)
+![alt text](https://github.com/neeha78/RewardsProgram/blob/main/Showcase/Junits.png)
 
-For Dockerization
------------------
-use dockerfile to create image
